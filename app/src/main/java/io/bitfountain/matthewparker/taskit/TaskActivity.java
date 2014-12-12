@@ -2,16 +2,23 @@ package io.bitfountain.matthewparker.taskit;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
 public class TaskActivity extends ActionBarActivity {
 
+    public static final String EXTRA = "TaskExtra";
+    private static final String TAG = "TaskActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
+
+        Task task = (Task)getIntent().getSerializableExtra(EXTRA);
+        Log.d(TAG, task.getName());
     }
 
 
