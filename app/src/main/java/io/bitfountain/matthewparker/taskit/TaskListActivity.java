@@ -40,8 +40,10 @@ public class TaskListActivity extends ActionBarActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             convertView = super.getView(position, convertView, parent);
+            Task task = getItem(position);
             TextView taskName = (TextView)convertView.findViewById(R.id.task_item_name);
-            taskName.setText("Hello world!");
+            taskName.setText(task.getName());
+
 
             return convertView;
         }
