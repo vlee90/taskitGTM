@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -39,6 +40,8 @@ public class TaskListActivity extends ActionBarActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             convertView = super.getView(position, convertView, parent);
+            TextView taskName = (TextView)convertView.findViewById(R.id.task_item_name);
+            taskName.setText("Hello world!");
 
             return convertView;
         }
