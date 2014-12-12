@@ -2,10 +2,12 @@ package io.bitfountain.matthewparker.taskit;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
@@ -15,6 +17,8 @@ import java.util.ArrayList;
 
 
 public class TaskListActivity extends ActionBarActivity {
+
+    private static final String TAG = "TaskListActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,13 @@ public class TaskListActivity extends ActionBarActivity {
 
         ListView listView = (ListView)findViewById(R.id.task_list);
         listView.setAdapter(new TaskAdapter(items));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "Position click is "+position);
+            }
+        });
+
     }
 
     private class TaskAdapter extends ArrayAdapter<Task>{
