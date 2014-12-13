@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 
 
 public class TaskActivity extends ActionBarActivity {
@@ -18,7 +22,33 @@ public class TaskActivity extends ActionBarActivity {
         setContentView(R.layout.activity_task);
 
         Task task = (Task)getIntent().getSerializableExtra(EXTRA);
-        Log.d(TAG, task.getName());
+
+        EditText taskNameInput = (EditText)findViewById(R.id.task_name);
+        Button dateButton = (Button)findViewById(R.id.task_date);
+        CheckBox doneBox = (CheckBox)findViewById(R.id.task_done);
+        Button saveButton = (Button)findViewById(R.id.save_button);
+
+        taskNameInput.setText(task.getName());
+        if (task.getDueDate() == null){
+            dateButton.setText(getResources().getString(R.string.no_date));
+        }else{
+            dateButton.setText(task.getDueDate().toString());
+        }
+        doneBox.setChecked(task.isDone());
+
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
 

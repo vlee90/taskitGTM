@@ -29,6 +29,7 @@ public class TaskListActivity extends ActionBarActivity {
         Task[] items = new Task[3];
         items[0] = new Task();
         items[0].setName("Task 1");
+        items[0].setName("Task 1");
         items[1] = new Task();
         items[1].setName("Task 2");
         items[1].setDone(true);

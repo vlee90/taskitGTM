@@ -9,9 +9,12 @@
     tools:context="io.bitfountain.matthewparker.taskit.TaskActivity">
 
     <EditText
+        android:id="@+id/task_name"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
+        android:id="@+id/task_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <LinearLayout
@@ -25,8 +28,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <CheckBox
+            android:id="@+id/task_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         </LinearLayout>
+
+    <Button
+        android:id="@+id/save_button"
+        android:text="@string/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
