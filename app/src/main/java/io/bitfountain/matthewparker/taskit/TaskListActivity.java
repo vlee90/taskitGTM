@@ -55,8 +55,13 @@ public class TaskListActivity extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Task task = (Task)data.getSerializableExtra(TaskActivity.EXTRA);
-        Log.d(TAG, task.getName());
+
+        if (requestCode == EDIT_TASK_REQUEST){
+            if (resultCode == RESULT_OK){
+                Task task = (Task)data.getSerializableExtra(TaskActivity.EXTRA);
+                Log.d(TAG, task.getName());
+            }
+        }
     }
 
     private class TaskAdapter extends ArrayAdapter<Task>{
