@@ -1,6 +1,7 @@
 package io.bitfountain.matthewparker.taskit;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -75,6 +76,11 @@ public class TaskActivity extends ActionBarActivity {
                 mTask.setName(mTaskNameInput.getText().toString());
                 mTask.setDone(mDoneBox.isChecked());
                 mTask.setDueDate(mCal.getTime());
+
+                Intent i = new Intent();
+                i.putExtra(EXTRA, mTask);
+                setResult(RESULT_OK, i);
+                finish();
             }
         });
     }
