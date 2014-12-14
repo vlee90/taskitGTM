@@ -21,6 +21,7 @@ import java.util.Date;
 public class TaskListActivity extends ActionBarActivity {
 
     private static final String TAG = "TaskListActivity";
+    private static final int EDIT_TASK_REQUEST = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +46,17 @@ public class TaskListActivity extends ActionBarActivity {
                 Intent i = new Intent(TaskListActivity.this, TaskActivity.class);
                 Task task = (Task)parent.getAdapter().getItem(position);
                 i.putExtra(TaskActivity.EXTRA, task);
-                startActivity(i);
+                startActivityForResult(i, EDIT_TASK_REQUEST);
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Task task = (Task)data.getSerializableExtra(TaskActivity.EXTRA);
+        Log.d(TAG, task.getName());
     }
 
     private class TaskAdapter extends ArrayAdapter<Task>{
