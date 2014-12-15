@@ -71,7 +71,8 @@ public class TaskListActivity extends ActionBarActivity {
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                return false;
+                getMenuInflater().inflate(R.menu.menu_task_list_context, menu);
+                return true;
             }
 
             @Override
