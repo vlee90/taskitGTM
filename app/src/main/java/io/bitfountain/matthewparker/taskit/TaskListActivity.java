@@ -135,6 +135,7 @@ public class TaskListActivity extends ActionBarActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.menu_task_list_context, menu);
     }
 
     @Override
