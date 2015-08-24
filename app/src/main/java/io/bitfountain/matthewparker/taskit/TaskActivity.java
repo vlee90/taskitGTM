@@ -13,9 +13,13 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.google.android.gms.tagmanager.DataLayer;
+import com.google.android.gms.tagmanager.TagManager;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 
 public class TaskActivity extends ActionBarActivity {
@@ -40,6 +44,12 @@ public class TaskActivity extends ActionBarActivity {
         else {
             Log.d(TAG, "This is a Release Build");
         }
+
+        DataLayer dataLayer = TagManager.getInstance(this).getDataLayer();
+        String event = "screen-load";
+        Map<String, Object> update = DataLayer.mapOf("screen-name", "Task Screen");
+        Log.d(TAG, "event: + " + event + " Object: " + update);
+        dataLayer.pushEvent(event, update);
 
         mTask = (Task)getIntent().getSerializableExtra(EXTRA);
         if (mTask == null){

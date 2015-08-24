@@ -18,8 +18,18 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Result;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.tagmanager.Container;
+import com.google.android.gms.tagmanager.ContainerHolder;
+import com.google.android.gms.tagmanager.DataLayer;
+import com.google.android.gms.tagmanager.TagManager;
+
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 public class TaskListActivity extends ActionBarActivity {
@@ -33,10 +43,51 @@ public class TaskListActivity extends ActionBarActivity {
     private TaskAdapter mAdapter;
     private ListView mListView;
 
+    //GTM Start
+    private static final String CONTAINER_ID = "GTM-KQDB98";
+    private static final int GTM_TIMEOUT = 2;
+    //GTM End
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
+
+        //GTM Start
+        TagManager tagManager = TagManager.getInstance(this);
+        tagManager.setVerboseLoggingEnabled(true);
+
+        PendingResult<ContainerHolder> pendingResult = tagManager.loadContainerPreferNonDefault(CONTAINER_ID, R.raw.gtm_kqdb98);
+        pendingResult.setResultCallback(new ResultCallback<ContainerHolder>() {
+            @Override
+            public void onResult(ContainerHolder containerHolder) {
+                //On Result is triggered when a saved container is loaded, network container is loaded, or error occurs, or timeout occurs.
+                Log.d(TAG, "ContainerHolder Status = " + containerHolder.getStatus().toString());
+                if (!containerHolder.getStatus().isSuccess()) {
+                    Log.d(TAG, "Container load is not successful");
+                    return;
+                }
+
+
+                containerHolder.setContainerAvailableListener(new ContainerHolder.ContainerAvailableListener() {
+                    @Override
+                    public void onContainerAvailable(ContainerHolder containerHolder, String s) {
+                        //Listens for when new container is availiable. Conatiner isn't activie until getContainer() is called.
+                        Log.d(TAG, "onContainerAvailable called. Container Version = " + s);
+                        Container container = containerHolder.getContainer();
+                    }
+                });
+
+            }
+        }, GTM_TIMEOUT, TimeUnit.SECONDS);
+        DataLayer dataLayer = TagManager.getInstance(this).getDataLayer();
+        String event = "screen-load";
+        Map<String, Object> update = DataLayer.mapOf("screen-name", "Task List Screen");
+        Log.d(TAG,"event: + " + event + " Object: " + update);
+        dataLayer.pushEvent(event, update);
+
+        //GTM End
 
         mTasks = new ArrayList<Task>();
         mTasks.add(new Task());
