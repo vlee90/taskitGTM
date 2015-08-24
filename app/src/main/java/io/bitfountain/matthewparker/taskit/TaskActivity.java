@@ -38,18 +38,10 @@ public class TaskActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
 
-        if (BuildConfig.DEBUG) {
-            Log.d(TAG, "This is a Debug Build");
-        }
-        else {
-            Log.d(TAG, "This is a Release Build");
-        }
+        //GTM Start
 
-        DataLayer dataLayer = TagManager.getInstance(this).getDataLayer();
-        String event = "screen-load";
-        Map<String, Object> update = DataLayer.mapOf("screen-name", "Task Screen");
-        Log.d(TAG, "event: + " + event + " Object: " + update);
-        dataLayer.pushEvent(event, update);
+        AnalyticsManager analyticsManager = AnalyticsManager.getInstance();
+        analyticsManager.pushEvent("screen-load", DataLayer.mapOf("screen-name", "Task Screen"));
 
         mTask = (Task)getIntent().getSerializableExtra(EXTRA);
         if (mTask == null){
@@ -98,6 +90,8 @@ public class TaskActivity extends ActionBarActivity {
                 mTask.setName(mTaskNameInput.getText().toString());
                 mTask.setDone(mDoneBox.isChecked());
                 mTask.setDueDate(mCal.getTime());
+
+                AnalyticsManager.getInstance().pushEvent("button-pressed", DataLayer.mapOf("favorite-color", "Red"));
 
                 Intent i = new Intent();
                 i.putExtra(EXTRA, mTask);
