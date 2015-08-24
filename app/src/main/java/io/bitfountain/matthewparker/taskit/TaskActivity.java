@@ -34,6 +34,13 @@ public class TaskActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
 
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "This is a Debug Build");
+        }
+        else {
+            Log.d(TAG, "This is a Release Build");
+        }
+
         mTask = (Task)getIntent().getSerializableExtra(EXTRA);
         if (mTask == null){
             mTask = new Task();
